@@ -53,10 +53,11 @@ jobs:
       - name: 📦 Install dependencies
         run: |
           echo "📦 Installing PCS Booking System dependencies..."
-          echo "🧹 Clearing node_modules for fresh install..."
-          rm -rf node_modules package-lock.json
+          echo "🧹 Aggressive cleanup for fresh install..."
+          rm -rf node_modules package-lock.json .npm
+          npm cache clean --force
           echo "📦 Installing with correct versions..."
-          npm install
+          npm install --no-package-lock
           echo "✅ Dependencies installed successfully"
           echo ""
           echo "📋 Key dependencies:"
@@ -66,10 +67,15 @@ jobs:
           npm list slick-carousel || echo "⚠️ slick-carousel not found"
           npm list terser || echo "⚠️ terser not found, using esbuild for minification"
           npm list tailwindcss || echo "⚠️ tailwindcss not found"
-          npm list vite || echo "⚠️ vite not found"
           echo ""
-          echo "📋 Vite version:"
+          echo "📋 Vite version verification:"
           npm list vite
+          echo ""
+          echo "📋 Vite executable location:"
+          which vite || echo "Vite not in PATH"
+          echo ""
+          echo "📋 Node.js version:"
+          node --version
         working-directory: packages/client
 
       - name: 🧹 Clean build directory
@@ -125,8 +131,12 @@ jobs:
           echo "📄 First 10 lines of App.tsx:"
           head -10 src/App.tsx
           echo ""
-          echo "🔧 Starting build..."
-          npm run build
+          echo "🔧 Starting build with npx..."
+          echo "📋 Using npx to ensure correct Vite version:"
+          npx vite --version
+          echo ""
+          echo "🔧 Building..."
+          npx vite build
           echo "✅ Build completed successfully"
         working-directory: packages/client
         env:
