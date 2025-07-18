@@ -98,7 +98,14 @@ jobs:
       - name: 🧹 Remove any conflicting App.jsx files
         run: |
           echo "🧹 Removing any App.jsx files that might conflict..."
-          find . -name "App.jsx" -type f -delete || echo "No App.jsx files found"
+          echo "📄 Finding all App.jsx files:"
+          find . -name "App.jsx" -type f || echo "No App.jsx files found"
+          echo ""
+          echo "🗑️ Deleting all App.jsx files:"
+          find . -name "App.jsx" -type f -delete
+          echo ""
+          echo "📄 Removing any react-router-dom references from other directories:"
+          find . -name "package.json" -not -path "./packages/client/package.json" -exec rm -f {} \; || echo "No other package.json files found"
           echo "✅ Cleanup completed"
         working-directory: .
 
@@ -150,11 +157,8 @@ jobs:
           echo "🚀 Deploying PCS Booking System v2.0.0 to Cloudflare Pages..."
           cd packages/client
 
-          # Deploy with Wrangler CLI (creates project automatically if needed)
-          wrangler pages deploy dist \
-            --project-name="${{ env.CLOUDFLARE_PROJECT_NAME }}" \
-            --compatibility-flags="nodejs_compat" \
-            --compatibility-date="2024-01-01"
+          # Deploy with Wrangler CLI (simplified command without compatibility flags)
+          wrangler pages deploy dist --project-name="${{ env.CLOUDFLARE_PROJECT_NAME }}"
 
           echo "✅ Deployment completed successfully!"
         env:
