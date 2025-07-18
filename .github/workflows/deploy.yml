@@ -71,7 +71,7 @@ jobs:
           # Try to get project info, create if it doesn't exist
           if ! wrangler pages project list | grep -q "${{ env.CLOUDFLARE_PROJECT_NAME }}"; then
             echo "📝 Project not found, creating new project..."
-            wrangler pages project create "${{ env.CLOUDFLARE_PROJECT_NAME }}" --compatibility-flags="nodejs_compat"
+            wrangler pages project create "${{ env.CLOUDFLARE_PROJECT_NAME }}" --production-branch="main" --compatibility-flags="nodejs_compat"
             echo "✅ Project '${{ env.CLOUDFLARE_PROJECT_NAME }}' created successfully"
           else
             echo "✅ Project '${{ env.CLOUDFLARE_PROJECT_NAME }}' already exists"
