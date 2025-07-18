@@ -1,0 +1,79 @@
+name: Deploy PCS Booking to Cloudflare Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '18'
+  CLOUDFLARE_PROJECT_NAME: 'pcs-booking'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Cloudflare Pages
+
+    # Only deploy on push to main, not on PRs
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: packages/client/package-lock.json
+
+      - name: Verify secrets are available
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "❌ CLOUDFLARE_API_TOKEN secret is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "❌ CLOUDFLARE_ACCOUNT_ID secret is not set"
+            exit 1
+          fi
+          echo "✅ All required secrets are configured"
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: packages/client
+
+      - name: Build application
+        run: npm run build
+        working-directory: packages/client
+        env:
+          NODE_ENV: production
+
+      - name: Verify build output
+        run: |
+          if [ ! -d "packages/client/dist" ]; then
+            echo "❌ Build failed - dist directory not found"
+            exit 1
+          fi
+          echo "✅ Build successful - dist directory exists"
+          ls -la packages/client/dist/
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ env.CLOUDFLARE_PROJECT_NAME }}
+          directory: packages/client/dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          wranglerVersion: '3'
+
+      - name: Deployment Success
+        run: |
+          echo "🎉 Deployment completed successfully!"
+          echo "📱 React App: https://${{ env.CLOUDFLARE_PROJECT_NAME }}.pages.dev"
+          echo "🌐 Custom Domain: https://booking.privatecarserviceparis.com"
+          echo "⚙️  Configure custom domain with: wrangler pages domain add ${{ env.CLOUDFLARE_PROJECT_NAME }} booking.privatecarserviceparis.com"
