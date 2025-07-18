@@ -61,6 +61,25 @@ jobs:
           echo "✅ Build successful - dist directory exists"
           ls -la packages/client/dist/
 
+      - name: Install Wrangler CLI
+        run: npm install -g wrangler@3
+
+      - name: Create Cloudflare Pages project if it doesn't exist
+        run: |
+          echo "🔍 Checking if project '${{ env.CLOUDFLARE_PROJECT_NAME }}' exists..."
+
+          # Try to get project info, create if it doesn't exist
+          if ! wrangler pages project list | grep -q "${{ env.CLOUDFLARE_PROJECT_NAME }}"; then
+            echo "📝 Project not found, creating new project..."
+            wrangler pages project create "${{ env.CLOUDFLARE_PROJECT_NAME }}" --compatibility-flags="nodejs_compat"
+            echo "✅ Project '${{ env.CLOUDFLARE_PROJECT_NAME }}' created successfully"
+          else
+            echo "✅ Project '${{ env.CLOUDFLARE_PROJECT_NAME }}' already exists"
+          fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
