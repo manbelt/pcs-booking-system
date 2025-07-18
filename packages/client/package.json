@@ -20,7 +20,12 @@
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
     "framer-motion": "^11.0.0",
-    "@types/react-slick": "^0.23.13"
+    "@types/react-slick": "^0.23.13",
+    "lucide-react": "^0.263.1",
+    "react-phone-number-input": "^3.3.4",
+    "libphonenumber-js": "^1.10.44",
+    "date-fns": "^2.30.0",
+    "clsx": "^2.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
