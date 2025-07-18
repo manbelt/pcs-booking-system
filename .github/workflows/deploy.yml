@@ -53,6 +53,9 @@ jobs:
       - name: 📦 Install dependencies
         run: |
           echo "📦 Installing PCS Booking System dependencies..."
+          echo "🧹 Clearing node_modules for fresh install..."
+          rm -rf node_modules package-lock.json
+          echo "📦 Installing with correct versions..."
           npm install
           echo "✅ Dependencies installed successfully"
           echo ""
@@ -63,6 +66,10 @@ jobs:
           npm list slick-carousel || echo "⚠️ slick-carousel not found"
           npm list terser || echo "⚠️ terser not found, using esbuild for minification"
           npm list tailwindcss || echo "⚠️ tailwindcss not found"
+          npm list vite || echo "⚠️ vite not found"
+          echo ""
+          echo "📋 Vite version:"
+          npm list vite
         working-directory: packages/client
 
       - name: 🧹 Clean build directory
