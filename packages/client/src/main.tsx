@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx' // Explicitly import App.tsx to avoid conflict with App.jsx
+import App from './App' // Import App without extension - TypeScript will resolve to App.tsx
 
 // Global error handler for unhandled promise rejections
 window.addEventListener('unhandledrejection', (event) => {
