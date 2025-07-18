@@ -73,13 +73,45 @@ jobs:
           echo "✅ Build directory cleaned"
         working-directory: packages/client
 
+      - name: 🔍 Debug file structure
+        run: |
+          echo "🔍 Debugging file structure issue..."
+          echo "📁 Current working directory:"
+          pwd
+          echo ""
+          echo "📁 Repository root contents:"
+          ls -la
+          echo ""
+          echo "📁 packages/client contents:"
+          ls -la packages/client/
+          echo ""
+          echo "📁 packages/client/src contents:"
+          ls -la packages/client/src/
+          echo ""
+          echo "📄 Looking for App files:"
+          find . -name "App.*" -type f
+          echo ""
+          echo "📄 Looking for any files importing react-router-dom:"
+          grep -r "react-router-dom" . || echo "No react-router-dom imports found"
+        working-directory: .
+
+      - name: 🧹 Remove any conflicting App.jsx files
+        run: |
+          echo "🧹 Removing any App.jsx files that might conflict..."
+          find . -name "App.jsx" -type f -delete || echo "No App.jsx files found"
+          echo "✅ Cleanup completed"
+        working-directory: .
+
       - name: 🔧 Build PCS Booking System v2.0.0
         run: |
           echo "🔧 Building production bundle..."
-          echo "📁 Current directory contents:"
-          ls -la src/
-          echo "📄 Checking App file:"
+          echo "📄 Verifying our App.tsx file exists:"
           ls -la src/App.*
+          echo ""
+          echo "📄 First 10 lines of App.tsx:"
+          head -10 src/App.tsx
+          echo ""
+          echo "🔧 Starting build..."
           npm run build
           echo "✅ Build completed successfully"
         working-directory: packages/client
