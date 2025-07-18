@@ -6,13 +6,15 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: '#c5a46d',
+        secondary: '#2c3e50',
+        accent: '#e74c3c',
+      },
       fontFamily: {
         'playfair': ['Playfair Display', 'serif'],
         'inter': ['Inter', 'sans-serif'],
       },
-      colors: {
-        'luxury-gold': '#c5a46d',
-      }
     },
   },
   plugins: [],
