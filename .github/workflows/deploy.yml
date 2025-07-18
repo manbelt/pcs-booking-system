@@ -65,9 +65,21 @@ jobs:
           npm list tailwindcss || echo "⚠️ tailwindcss not found"
         working-directory: packages/client
 
+      - name: 🧹 Clean build directory
+        run: |
+          echo "🧹 Cleaning previous build artifacts..."
+          rm -rf dist
+          rm -rf node_modules/.vite
+          echo "✅ Build directory cleaned"
+        working-directory: packages/client
+
       - name: 🔧 Build PCS Booking System v2.0.0
         run: |
           echo "🔧 Building production bundle..."
+          echo "📁 Current directory contents:"
+          ls -la src/
+          echo "📄 Checking App file:"
+          ls -la src/App.*
           npm run build
           echo "✅ Build completed successfully"
         working-directory: packages/client
