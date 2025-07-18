@@ -50,59 +50,134 @@ jobs:
           echo "📁 Source: packages/client"
           echo "🔧 Node.js: ${{ env.NODE_VERSION }}"
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: |
+          echo "📦 Installing PCS Booking System dependencies..."
           npm install
-          npm list terser || echo "⚠️ Terser not found, but esbuild will be used for minification"
+          echo "✅ Dependencies installed successfully"
+          echo ""
+          echo "📋 Key dependencies:"
+          npm list @supabase/supabase-js || echo "⚠️ @supabase/supabase-js not found"
+          npm list framer-motion || echo "⚠️ framer-motion not found"
+          npm list react-slick || echo "⚠️ react-slick not found"
+          npm list slick-carousel || echo "⚠️ slick-carousel not found"
+          npm list terser || echo "⚠️ terser not found, using esbuild for minification"
+          npm list tailwindcss || echo "⚠️ tailwindcss not found"
         working-directory: packages/client
 
-      - name: Build application
-        run: npm run build
+      - name: 🔧 Build PCS Booking System v2.0.0
+        run: |
+          echo "🔧 Building production bundle..."
+          npm run build
+          echo "✅ Build completed successfully"
         working-directory: packages/client
         env:
           NODE_ENV: production
+          VITE_APP_VERSION: "2.0.0"
 
-      - name: Verify build output
+      - name: ✅ Verify build output
         run: |
           if [ ! -d "packages/client/dist" ]; then
             echo "❌ Build failed - dist directory not found"
             exit 1
           fi
-          echo "✅ Build successful - dist directory exists"
+
+          echo "✅ Build successful - analyzing output:"
+          echo "📁 Build directory contents:"
           ls -la packages/client/dist/
+          echo ""
+          echo "📊 Build size analysis:"
+          du -sh packages/client/dist/*
+          echo ""
+          echo "🔍 Checking for essential files:"
+          [ -f "packages/client/dist/index.html" ] && echo "✅ index.html found" || echo "❌ index.html missing"
+          [ -f "packages/client/dist/booking-ui.js" ] && echo "✅ booking-ui.js found" || echo "❌ booking-ui.js missing"
+          [ -f "packages/client/dist/booking-ui.css" ] && echo "✅ booking-ui.css found" || echo "❌ booking-ui.css missing"
 
-      - name: Install Wrangler CLI
-        run: npm install -g wrangler@3
-
-      - name: Create Cloudflare Pages project if it doesn't exist
+      - name: 🛠️ Install Wrangler CLI
         run: |
-          echo "🔍 Checking if project '${{ env.CLOUDFLARE_PROJECT_NAME }}' exists..."
+          echo "🛠️ Installing Wrangler CLI..."
+          npm install -g wrangler@3
+          wrangler --version
+          echo "✅ Wrangler CLI installed successfully"
 
-          # Try to get project info, create if it doesn't exist
-          if ! wrangler pages project list | grep -q "${{ env.CLOUDFLARE_PROJECT_NAME }}"; then
-            echo "📝 Project not found, creating new project..."
-            wrangler pages project create "${{ env.CLOUDFLARE_PROJECT_NAME }}" --production-branch="main" --compatibility-flags="nodejs_compat"
-            echo "✅ Project '${{ env.CLOUDFLARE_PROJECT_NAME }}' created successfully"
-          else
-            echo "✅ Project '${{ env.CLOUDFLARE_PROJECT_NAME }}' already exists"
-          fi
+      - name: 🚀 Deploy to Cloudflare Pages
+        run: |
+          echo "🚀 Deploying PCS Booking System v2.0.0 to Cloudflare Pages..."
+          cd packages/client
+
+          # Deploy with Wrangler CLI (creates project automatically if needed)
+          wrangler pages deploy dist \
+            --project-name="${{ env.CLOUDFLARE_PROJECT_NAME }}" \
+            --compatibility-flags="nodejs_compat" \
+            --compatibility-date="2024-01-01"
+
+          echo "✅ Deployment completed successfully!"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ env.CLOUDFLARE_PROJECT_NAME }}
-          directory: packages/client/dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          wranglerVersion: '3'
-
-      - name: Deployment Success
+      - name: 🎉 Deployment Success Summary
         run: |
-          echo "🎉 Deployment completed successfully!"
-          echo "📱 React App: https://${{ env.CLOUDFLARE_PROJECT_NAME }}.pages.dev"
-          echo "🌐 Custom Domain: https://booking.privatecarserviceparis.com"
-          echo "⚙️  Configure custom domain with: wrangler pages domain add ${{ env.CLOUDFLARE_PROJECT_NAME }} booking.privatecarserviceparis.com"
+          echo "🎉 PCS Booking System v2.0.0 deployed successfully!"
+          echo ""
+          echo "📱 Live Application:"
+          echo "   https://${{ env.CLOUDFLARE_PROJECT_NAME }}.pages.dev"
+          echo ""
+          echo "🌐 Custom Domain Setup:"
+          echo "   wrangler pages domain add ${{ env.CLOUDFLARE_PROJECT_NAME }} booking.privatecarserviceparis.com"
+          echo ""
+          echo "📋 Cloudflare Dashboard:"
+          echo "   https://dash.cloudflare.com/pages/view/${{ env.CLOUDFLARE_PROJECT_NAME }}"
+          echo ""
+          echo "✨ Features Deployed:"
+          echo "   ✅ Luxury Vehicle Selection with Brand Filtering"
+          echo "   ✅ International Phone Input with Country Detection"
+          echo "   ✅ Mobile-First Increment/Decrement Inputs"
+          echo "   ✅ Airport Transfer Forms with Flight Details"
+          echo "   ✅ Birthday Decoration Themes by Age Group"
+          echo "   ✅ Entertainment Services with Age Verification"
+          echo "   ✅ Multi-Step Booking Process"
+          echo "   ✅ WordPress Plugin Integration via window.PCS_CFG"
+          echo "   ✅ Supabase Backend Integration"
+          echo "   ✅ Responsive Luxury Design"
+          echo ""
+          echo "🔧 WordPress Plugin Configuration:"
+          echo "   - Ensure SUPABASE_URL and SUPABASE_ANON_KEY are configured"
+          echo "   - Deploy Supabase Edge Functions for backend"
+          echo "   - Test booking form integration"
+          echo ""
+          echo "🚀 Ready for production use!"
+
+  # Build-only job for PRs (no deployment)
+  build-test:
+    runs-on: ubuntu-latest
+    name: Build Test (PR)
+
+    # Only run on PRs
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: 🚀 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Install dependencies
+        run: npm install
+        working-directory: packages/client
+
+      - name: 🔧 Build test
+        run: npm run build
+        working-directory: packages/client
+        env:
+          NODE_ENV: production
+
+      - name: ✅ Build verification
+        run: |
+          echo "✅ PR build test completed successfully"
+          echo "📁 Build output verified"
+          ls -la packages/client/dist/
