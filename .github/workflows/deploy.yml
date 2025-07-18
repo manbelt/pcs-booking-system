@@ -17,7 +17,8 @@ jobs:
     name: Deploy PCS Booking System v2.0.0
 
     # Only deploy on push to main/master, not on PRs
-if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'))
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'))
+
     steps:
       - name: 🚀 Checkout repository
         uses: actions/checkout@v4
