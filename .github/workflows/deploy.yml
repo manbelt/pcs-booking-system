@@ -1,4 +1,4 @@
-name: Deploy PCS Booking to Cloudflare Pages (Robust)
+name: Deploy PCS Booking to Cloudflare Pages (Simple)
 
 on:
   push:
@@ -61,46 +61,14 @@ jobs:
           echo "✅ Build successful - dist directory exists"
           ls -la packages/client/dist/
 
-      - name: Install Wrangler CLI
-        run: npm install -g wrangler@3
-
-      - name: Setup Cloudflare Pages project
+      - name: Deploy to Cloudflare Pages (with auto-creation)
         run: |
-          echo "🔍 Setting up Cloudflare Pages project..."
+          # Install Wrangler
+          npm install -g wrangler@3
           
-          # Check if project exists
-          if wrangler pages project list | grep -q "${{ env.CLOUDFLARE_PROJECT_NAME }}"; then
-            echo "✅ Project '${{ env.CLOUDFLARE_PROJECT_NAME }}' already exists"
-          else
-            echo "📝 Creating new project '${{ env.CLOUDFLARE_PROJECT_NAME }}'..."
-            
-            # Create project with all required parameters
-            wrangler pages project create \
-              "${{ env.CLOUDFLARE_PROJECT_NAME }}" \
-              --production-branch="main" \
-              --preview-branch="dev" \
-              --compatibility-flags="nodejs_compat" || {
-              
-              echo "⚠️ Project creation failed, but deployment will continue..."
-              echo "📝 The project will be created automatically during deployment"
-            }
-          fi
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Deploy to Cloudflare Pages
-        run: |
-          echo "🚀 Deploying to Cloudflare Pages..."
+          # Deploy using Wrangler (creates project if needed)
           cd packages/client
-          
-          # Deploy with Wrangler (creates project if it doesn't exist)
-          wrangler pages deploy dist \
-            --project-name="${{ env.CLOUDFLARE_PROJECT_NAME }}" \
-            --compatibility-flags="nodejs_compat" \
-            --compatibility-date="2024-01-01"
-            
-          echo "✅ Deployment completed successfully!"
+          wrangler pages deploy dist --project-name="${{ env.CLOUDFLARE_PROJECT_NAME }}" --compatibility-flags="nodejs_compat"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -111,4 +79,3 @@ jobs:
           echo "📱 React App: https://${{ env.CLOUDFLARE_PROJECT_NAME }}.pages.dev"
           echo "🌐 Custom Domain: https://booking.privatecarserviceparis.com"
           echo "⚙️  Configure custom domain with: wrangler pages domain add ${{ env.CLOUDFLARE_PROJECT_NAME }} booking.privatecarserviceparis.com"
-          echo "📋 Project URL: https://dash.cloudflare.com/pages/view/${{ env.CLOUDFLARE_PROJECT_NAME }}"
