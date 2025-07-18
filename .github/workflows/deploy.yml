@@ -16,14 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy to Cloudflare Pages
 
-    # Only deploy on push to main, not on PRs
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-        - name: Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -41,7 +40,7 @@ jobs:
           echo "✅ All required secrets are configured"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
         working-directory: packages/client
 
       - name: Build application
@@ -74,4 +73,3 @@ jobs:
           echo "🎉 Deployment completed successfully!"
           echo "📱 React App: https://${{ env.CLOUDFLARE_PROJECT_NAME }}.pages.dev"
           echo "🌐 Custom Domain: https://booking.privatecarserviceparis.com"
-          echo "⚙️  Configure custom domain with: wrangler pages domain add ${{ env.CLOUDFLARE_PROJECT_NAME }} booking.privatecarserviceparis.com"
