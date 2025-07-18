@@ -1,4 +1,4 @@
-name: Deploy PCS Booking to Cloudflare Pages (Auto Project Name)
+name: Deploy PCS Booking to Cloudflare Pages (Wrangler Only)
 
 on:
   push:
@@ -9,8 +9,7 @@ on:
 
 env:
   NODE_VERSION: '18'
-  # Use repository name as project name (GitHub automatically creates this)
-  CLOUDFLARE_PROJECT_NAME: ${{ github.event.repository.name }}
+  CLOUDFLARE_PROJECT_NAME: 'pcs-booking'
 
 jobs:
   deploy:
@@ -28,12 +27,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-
-      - name: Display project information
-        run: |
-          echo "🏗️ Repository: ${{ github.repository }}"
-          echo "📦 Project Name: ${{ env.CLOUDFLARE_PROJECT_NAME }}"
-          echo "🌐 Expected URL: https://${{ env.CLOUDFLARE_PROJECT_NAME }}.pages.dev"
 
       - name: Verify secrets are available
         run: |
@@ -68,19 +61,30 @@ jobs:
           echo "✅ Build successful - dist directory exists"
           ls -la packages/client/dist/
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ env.CLOUDFLARE_PROJECT_NAME }}
-          directory: packages/client/dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          wranglerVersion: '3'
+      - name: Install Wrangler CLI
+        run: npm install -g wrangler@3
 
-      - name: Deployment Success
+      - name: Deploy to Cloudflare Pages with Wrangler
+        run: |
+          echo "🚀 Deploying to Cloudflare Pages using Wrangler..."
+          cd packages/client
+          
+          # Deploy directly with Wrangler - this will create the project if it doesn't exist
+          wrangler pages deploy dist \
+            --project-name="${{ env.CLOUDFLARE_PROJECT_NAME }}" \
+            --compatibility-flags="nodejs_compat" \
+            --compatibility-date="2024-01-01"
+            
+          echo "✅ Deployment completed successfully!"
+          echo "📱 Your app is live at: https://${{ env.CLOUDFLARE_PROJECT_NAME }}.pages.dev"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Get deployment URL
         run: |
           echo "🎉 Deployment completed successfully!"
           echo "📱 React App: https://${{ env.CLOUDFLARE_PROJECT_NAME }}.pages.dev"
-          echo "🌐 Repository: ${{ github.repository }}"
+          echo "🌐 Custom Domain: https://booking.privatecarserviceparis.com"
+          echo "📋 Cloudflare Dashboard: https://dash.cloudflare.com/pages/view/${{ env.CLOUDFLARE_PROJECT_NAME }}"
           echo "⚙️  Configure custom domain with: wrangler pages domain add ${{ env.CLOUDFLARE_PROJECT_NAME }} booking.privatecarserviceparis.com"
