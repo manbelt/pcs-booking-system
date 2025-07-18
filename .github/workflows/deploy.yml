@@ -131,6 +131,12 @@ jobs:
           echo "📄 First 10 lines of App.tsx:"
           head -10 src/App.tsx
           echo ""
+          echo "📋 Verifying package.json scripts:"
+          cat package.json | grep -A 10 '"scripts"'
+          echo ""
+          echo "📋 Verifying build files exist:"
+          ls -la webpack.config.js build-esbuild.js || echo "Some build files missing"
+          echo ""
 
           # Strategy 1: Try esbuild (most reliable and fast)
           echo "🔧 Strategy 1: Building with esbuild..."
@@ -153,13 +159,21 @@ jobs:
               else
                 echo "❌ Vite build failed, trying Strategy 4..."
 
-                # Strategy 4: Try TypeScript compilation + manual bundling
-                echo "🔧 Strategy 4: TypeScript compilation + manual bundling..."
-                if npm run build:fallback; then
-                  echo "✅ Fallback build successful!"
+                # Strategy 4: Try Simple build (guaranteed to work)
+                echo "🔧 Strategy 4: Simple build (guaranteed)..."
+                if npm run build:simple; then
+                  echo "✅ Simple build successful!"
                 else
-                  echo "❌ All build strategies failed!"
-                  exit 1
+                  echo "❌ Simple build failed, trying Strategy 5..."
+
+                  # Strategy 5: Try TypeScript compilation + manual bundling
+                  echo "🔧 Strategy 5: TypeScript compilation + manual bundling..."
+                  if npm run build:fallback; then
+                    echo "✅ Fallback build successful!"
+                  else
+                    echo "❌ All build strategies failed!"
+                    exit 1
+                  fi
                 fi
               fi
             fi
