@@ -1,0 +1,1885 @@
+/* PCS Booking System Styles */
+
+/* CSS Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+
+p {
+  margin-bottom: 1rem;
+}
+
+/* PCS Booking Container */
+#pcs-booking-root {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Header */
+.booking-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.booking-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.booking-header p {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Vehicle Selector Styles */
+.vehicle-selector {
+  margin: 2rem 0;
+}
+
+.brand-filter {
+  margin-bottom: 2rem;
+}
+
+.brand-filter h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.brand-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.brand-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.brand-tab:hover {
+  border-color: #c5a46d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(197, 164, 109, 0.2);
+}
+
+.brand-tab.active {
+  border-color: #c5a46d;
+  background: linear-gradient(135deg, #c5a46d 0%, #d4b574 100%);
+  color: white;
+}
+
+.brand-icon {
+  font-size: 1.5rem;
+}
+
+.brand-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.vehicle-option {
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 1.5rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.vehicle-option:hover {
+  border-color: #c5a46d;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-option.selected {
+  border-color: #c5a46d;
+  background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 100%);
+  box-shadow: 0 8px 25px rgba(197, 164, 109, 0.2);
+}
+
+.vehicle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.vehicle-header h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.brand-badge {
+  background: #c5a46d;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.vehicle-details {
+  margin-bottom: 1.5rem;
+}
+
+.passenger-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.passenger-info .icon {
+  font-size: 1.2rem;
+}
+
+.vehicle-description {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.vehicle-features h5 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.vehicle-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vehicle-features li {
+  color: #666;
+  font-size: 0.85rem;
+  padding: 0.2rem 0;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.vehicle-features li:before {
+  content: '✓';
+  color: #c5a46d;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.pricing-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.price-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.price-item span:first-child {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.price-item span:last-child {
+  font-weight: 600;
+  color: #c5a46d;
+  font-size: 1rem;
+}
+
+.select-vehicle-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #c5a46d 0%, #d4b574 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.select-vehicle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(197, 164, 109, 0.3);
+}
+
+/* Increment/Decrement Input Styles */
+.increment-decrement-input {
+  margin-bottom: 1rem;
+}
+
+.input-label {
+  display: block;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.input-controls {
+  display: flex;
+  align-items: center;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.input-controls:focus-within {
+  border-color: #c5a46d;
+  box-shadow: 0 0 0 3px rgba(197, 164, 109, 0.1);
+}
+
+.decrement-btn,
+.increment-btn {
+  background: #f8f9fa;
+  border: none;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.decrement-btn:hover:not(:disabled),
+.increment-btn:hover:not(:disabled) {
+  background: #c5a46d;
+  color: white;
+}
+
+.decrement-btn:disabled,
+.increment-btn:disabled {
+  background: #f0f0f0;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.value-display {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  background: white;
+}
+
+.value-input {
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  width: 100%;
+  padding: 0.5rem;
+  outline: none;
+}
+
+.value-input::-webkit-outer-spin-button,
+.value-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.value-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.value-suffix {
+  color: #666;
+  font-size: 0.9rem;
+  margin-left: 0.25rem;
+  white-space: nowrap;
+}
+
+/* Airport Transfer Form Styles */
+.airport-transfer-form {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border: 1px solid #e0e0e0;
+}
+
+.airport-transfer-form h4 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.airport-transfer-form h4:before {
+  content: '✈️';
+  font-size: 1.2rem;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.radio-label:hover {
+  border-color: #c5a46d;
+  background: #faf8f3;
+}
+
+.radio-label input[type="radio"] {
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: #c5a46d;
+}
+
+.radio-label input[type="radio"]:checked + .radio-text {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.radio-text {
+  flex: 1;
+  color: #666;
+  line-height: 1.4;
+}
+
+.radio-text strong {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.form-help {
+  color: #666;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.transfer-info {
+  margin-top: 1.5rem;
+}
+
+.info-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.info-card h5 {
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-card li {
+  color: #666;
+  font-size: 0.9rem;
+  padding: 0.25rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.info-card li:before {
+  content: '✓';
+  color: #c5a46d;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+}
+
+/* International Phone Input Styles */
+.international-phone-input {
+  margin-bottom: 1rem;
+}
+
+.phone-input-container {
+  display: flex;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  transition: border-color 0.3s ease;
+}
+
+.phone-input-container:focus-within {
+  border-color: #c5a46d;
+  box-shadow: 0 0 0 3px rgba(197, 164, 109, 0.1);
+}
+
+.country-selector {
+  position: relative;
+}
+
+.country-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 100px;
+}
+
+.country-button:hover {
+  background: #e9ecef;
+}
+
+.country-flag {
+  font-size: 1.2rem;
+}
+
+.country-code {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+.dropdown-arrow {
+  font-size: 0.7rem;
+  color: #666;
+  transition: transform 0.3s ease;
+}
+
+.country-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.dropdown-search {
+  padding: 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.country-list {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.country-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  background: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: left;
+}
+
+.country-option:hover {
+  background: #f8f9fa;
+}
+
+.country-option.selected {
+  background: #c5a46d;
+  color: white;
+}
+
+.country-name {
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.country-dial-code {
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.country-option.selected .country-dial-code {
+  color: white;
+}
+
+.phone-number-input {
+  flex: 1;
+  border: none;
+  padding: 0.75rem;
+  font-size: 1rem;
+  outline: none;
+  background: transparent;
+}
+
+.format-example {
+  display: block;
+  color: #666;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  font-style: italic;
+}
+
+/* Enhanced Radio Button Styles for Entertainment Services */
+.entertainment-options .radio-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.entertainment-options .radio-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  min-height: 60px;
+}
+
+.entertainment-options .radio-label:hover {
+  border-color: #c5a46d;
+  background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(197, 164, 109, 0.15);
+}
+
+.entertainment-options .radio-label input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: #c5a46d;
+  cursor: pointer;
+}
+
+.entertainment-options .radio-label input[type="radio"]:checked + span {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.entertainment-options .radio-label input[type="radio"]:checked {
+  transform: scale(1.1);
+}
+
+.entertainment-options .radio-label:has(input[type="radio"]:checked) {
+  border-color: #c5a46d;
+  background: linear-gradient(135deg, #c5a46d 0%, #d4b574 100%);
+  color: white;
+  box-shadow: 0 6px 20px rgba(197, 164, 109, 0.3);
+}
+
+.entertainment-options .radio-label:has(input[type="radio"]:checked) input[type="radio"] {
+  accent-color: white;
+}
+
+.entertainment-options .radio-label span {
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.4;
+  transition: all 0.3s ease;
+}
+
+/* Add icons for entertainment options */
+.entertainment-options .radio-label[data-type="none"]:before {
+  content: '🚫';
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.entertainment-options .radio-label[data-type="male"]:before {
+  content: '👨';
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.entertainment-options .radio-label[data-type="female"]:before {
+  content: '👩';
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+/* Birthday decorations section styling */
+.birthday-decorations-section {
+  background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 100%);
+  border: 1px solid #c5a46d;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.birthday-decorations-section h5 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+}
+
+.theme-description {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.theme-description p {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Enhanced Image Component Styles */
+.enhanced-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.enhanced-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.image-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  color: #666;
+  font-size: 0.9rem;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+}
+
+.image-placeholder.loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+.image-placeholder.error {
+  background: #f8f9fa;
+  border: 2px dashed #e0e0e0;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e0e0e0;
+  border-top: 3px solid #c5a46d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.error-icon {
+  font-size: 2rem;
+  opacity: 0.5;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Vehicle image gallery improvements */
+.vehicle-images {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.vehicle-images .enhanced-image-container {
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-images .image-wrapper {
+  min-height: 250px;
+}
+
+/* Image loading states for vehicle cards */
+.vehicle-card .enhanced-image-container {
+  aspect-ratio: 4/3;
+  margin-bottom: 1rem;
+}
+
+.vehicle-card .image-wrapper {
+  min-height: 180px;
+}
+
+/* Auto-scroll and mobile navigation improvements */
+.enhanced-modal-content {
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+@media (max-width: 768px) {
+  .enhanced-modal-content {
+    max-height: 95vh;
+    padding: 1rem;
+  }
+
+  /* Ensure smooth transitions between steps */
+  .step-content {
+    animation: fadeInUp 0.3s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Optimize step navigation for mobile */
+  .step-navigation {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    border-top: 1px solid #e0e0e0;
+    padding: 1rem;
+    margin: 0 -1rem -1rem -1rem;
+    z-index: 10;
+  }
+
+  .step-navigation .nav-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .step-navigation button {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+}
+
+/* Error Boundary Styles */
+.error-boundary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.error-content {
+  text-align: center;
+  max-width: 600px;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.error-content h2 {
+  color: #dc3545;
+  margin-bottom: 1rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.error-details {
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.error-details summary {
+  cursor: pointer;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.error-stack {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.8rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.error-stack pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.error-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.error-actions .btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.error-actions .btn-primary {
+  background: #c5a46d;
+  color: white;
+}
+
+.error-actions .btn-primary:hover {
+  background: #b8976a;
+}
+
+.error-actions .btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.error-actions .btn-secondary:hover {
+  background: #5a6268;
+}
+
+/* No Vehicles State */
+.no-vehicles {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #f9f9f9;
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+.no-vehicles h3 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.no-vehicles p {
+  color: #666;
+  margin: 0;
+}
+
+/* Vehicle Grid */
+.vehicles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Vehicle Card */
+.vehicle-card {
+  background: #f5f5f5;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.vehicle-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Image Carousel */
+.vehicle-carousel {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.vehicle-carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slick-dots {
+  bottom: 10px;
+}
+
+.slick-dots li button:before {
+  color: #c5a46d;
+  font-size: 12px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #c5a46d;
+}
+
+/* Vehicle Info */
+.vehicle-info {
+  padding: 1.5rem;
+}
+
+.vehicle-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.vehicle-passengers {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Pricing Table */
+.pricing-table {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e0e0e0;
+}
+
+.pricing-table h4 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: #000000;
+}
+
+.pricing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.pricing-row:last-child {
+  border-bottom: none;
+}
+
+.pricing-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.pricing-value {
+  font-weight: 600;
+  color: #c5a46d;
+  font-size: 1.1rem;
+}
+
+/* Amenities */
+.amenities {
+  margin-bottom: 1.5rem;
+}
+
+.amenities h4 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: #000000;
+}
+
+.amenities-list {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Options */
+.vehicle-options {
+  margin-bottom: 1.5rem;
+}
+
+.option-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.option-checkbox input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: #c5a46d;
+}
+
+.option-checkbox label {
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.collapsible-option {
+  margin-top: 1rem;
+}
+
+.collapsible-header {
+  background: none;
+  border: none;
+  color: #c5a46d;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.collapsible-content {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: #f9f9f9;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border: 1px solid #c5a46d;
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: #000000;
+  color: #c5a46d;
+}
+
+.btn:hover {
+  background: #c5a46d;
+  color: #000000;
+}
+
+.btn-primary {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Loading States */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #c5a46d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error States */
+.error {
+  background: #fee;
+  border: 1px solid #fcc;
+  color: #c33;
+  padding: 1rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  color: #000000;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  color: #000;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Form Styles */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #c5a46d;
+  box-shadow: 0 0 0 2px rgba(197, 164, 109, 0.2);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Success Message */
+.success-message {
+  text-align: center;
+  padding: 2rem;
+}
+
+.success-message h3 {
+  color: #28a745;
+  margin-bottom: 1rem;
+}
+
+.success-message p {
+  color: #666;
+  margin: 0;
+}
+
+/* Pricing Summary */
+.pricing-summary {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.pricing-summary h4 {
+  margin: 0 0 0.5rem 0;
+  color: #c5a46d;
+  font-size: 1.25rem;
+}
+
+.pricing-note {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+  background: #e9e9e9;
+  color: #000;
+}
+
+/* Enhanced Modal Styles */
+.enhanced-modal-content {
+  background: #ffffff;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.step-indicator {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.step-indicator span {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.step-indicator span.active {
+  background: #c5a46d;
+  color: #ffffff;
+}
+
+.step-content {
+  padding: 1rem 0;
+}
+
+.step-content h3 {
+  margin-bottom: 1.5rem;
+  color: #000000;
+  font-family: 'Playfair Display', serif;
+}
+
+.step-content h4 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+/* Itinerary Styles */
+.itinerary-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.intermediate-stop {
+  position: relative;
+}
+
+.stop-input-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.stop-input-group input {
+  flex: 1;
+}
+
+.btn-remove-stop {
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.15s ease;
+}
+
+.btn-remove-stop:hover {
+  background: #cc0000;
+}
+
+.btn-add-stop {
+  background: #c5a46d;
+  color: #000000;
+  border: 1px solid #c5a46d;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin: 1rem 0;
+  transition: all 0.15s ease;
+}
+
+.btn-add-stop:hover {
+  background: #000000;
+  color: #c5a46d;
+}
+
+/* Amenities Styles */
+.amenities-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.amenity-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+  accent-color: #c5a46d;
+}
+
+.amenities-cost {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+  text-align: right;
+}
+
+/* Entertainment Styles */
+.entertainment-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.entertainment-content {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+.age-verification {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 4px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.radio-label input[type="radio"] {
+  accent-color: #c5a46d;
+}
+
+/* Pricing Styles */
+.pricing-preview {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #f0f8ff;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.pricing-preview h4 {
+  color: #c5a46d;
+  margin: 0;
+}
+
+.multi-vehicle-note {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0.5rem 0 0 0;
+}
+
+.final-pricing-summary {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.pricing-breakdown {
+  margin: 1rem 0;
+}
+
+.pricing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.pricing-row:last-child {
+  border-bottom: none;
+}
+
+.pricing-row.total {
+  border-top: 2px solid #c5a46d;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.character-counter {
+  text-align: right;
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.form-note {
+  font-size: 0.85rem;
+  color: #c5a46d;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: #fefbf3;
+  border-radius: 4px;
+  border-left: 3px solid #c5a46d;
+}
+
+/* Carousel Enhancements */
+.carousel-slide {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.carousel-slide:hover img {
+  transform: scale(1.05);
+}
+
+/* Slick Carousel Custom Styles */
+.slick-dots {
+  bottom: 15px;
+}
+
+.slick-dots li {
+  margin: 0 3px;
+}
+
+.slick-dots li button:before {
+  color: #c5a46d;
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #c5a46d;
+}
+
+.slick-prev,
+.slick-next {
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+}
+
+.slick-prev {
+  left: 10px;
+}
+
+.slick-next {
+  right: 10px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 20px;
+  color: #c5a46d;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #pcs-booking-root {
+    padding: 1rem 0.5rem;
+  }
+
+  .vehicles-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .vehicle-info {
+    padding: 1rem;
+  }
+
+  .vehicle-name {
+    font-size: 1.25rem;
+  }
+
+  .modal-content,
+  .enhanced-modal-content {
+    margin: 0.5rem;
+    max-height: 95vh;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+
+  .step-indicator {
+    gap: 0.25rem;
+  }
+
+  .step-indicator span {
+    width: 25px;
+    height: 25px;
+    font-size: 0.8rem;
+  }
+
+  .amenity-checkboxes,
+  .radio-group {
+    gap: 0.5rem;
+  }
+
+  .itinerary-section,
+  .amenities-section,
+  .entertainment-section {
+    padding: 1rem;
+  }
+
+  /* Vehicle selector mobile optimization */
+  .booking-header h1 {
+    font-size: 2rem;
+  }
+
+  .booking-header p {
+    font-size: 1rem;
+  }
+
+  .brand-tabs {
+    gap: 0.5rem;
+    justify-content: stretch;
+  }
+
+  .brand-tab {
+    min-width: 80px;
+    padding: 0.5rem 0.75rem;
+    flex: 1;
+  }
+
+  .brand-icon {
+    font-size: 1.2rem;
+  }
+
+  .brand-name {
+    font-size: 0.8rem;
+  }
+
+  .vehicle-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .vehicle-option {
+    padding: 1rem;
+  }
+
+  .vehicle-header h4 {
+    font-size: 1.2rem;
+  }
+
+  .pricing-summary {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: 0.75rem;
+  }
+
+  .price-item {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  /* Increment/decrement mobile optimization */
+  .increment-decrement-input {
+    margin-bottom: 0.75rem;
+  }
+
+  .input-controls {
+    border-radius: 6px;
+  }
+
+  .decrement-btn,
+  .increment-btn {
+    padding: 0.5rem;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .btn-icon {
+    font-size: 1.1rem;
+  }
+
+  .value-input {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  #pcs-booking-root {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .booking-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .brand-tab {
+    min-width: 70px;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .brand-name {
+    font-size: 0.75rem;
+  }
+
+  .vehicle-option {
+    padding: 0.75rem;
+  }
+
+  .increment-decrement-input {
+    margin-bottom: 0.5rem;
+  }
+
+  .decrement-btn,
+  .increment-btn {
+    min-width: 36px;
+    min-height: 36px;
+    padding: 0.4rem;
+  }
+}
