@@ -122,22 +122,50 @@ jobs:
           echo "✅ Cleanup completed"
         working-directory: .
 
-      - name: 🔧 Build PCS Booking System v2.0.0
+      - name: 🔧 Build PCS Booking System v2.0.0 (Multi-Strategy)
         run: |
-          echo "🔧 Building production bundle..."
+          echo "🔧 Building production bundle with multiple fallback strategies..."
           echo "📄 Verifying our App.tsx file exists:"
           ls -la src/App.*
           echo ""
           echo "📄 First 10 lines of App.tsx:"
           head -10 src/App.tsx
           echo ""
-          echo "🔧 Starting build with npx..."
-          echo "📋 Using npx to ensure correct Vite version:"
-          npx vite --version
-          echo ""
-          echo "🔧 Building..."
-          npx vite build
-          echo "✅ Build completed successfully"
+
+          # Strategy 1: Try esbuild (most reliable and fast)
+          echo "🔧 Strategy 1: Building with esbuild..."
+          if npm run build:esbuild; then
+            echo "✅ esbuild successful!"
+          else
+            echo "❌ esbuild failed, trying Strategy 2..."
+
+            # Strategy 2: Try Webpack (most reliable for Node.js compatibility)
+            echo "🔧 Strategy 2: Building with Webpack..."
+            if npm run build; then
+              echo "✅ Webpack build successful!"
+            else
+              echo "❌ Webpack build failed, trying Strategy 3..."
+
+              # Strategy 3: Try Vite with npx
+              echo "🔧 Strategy 3: Building with Vite (npx)..."
+              if npx vite build; then
+                echo "✅ Vite build successful!"
+              else
+                echo "❌ Vite build failed, trying Strategy 4..."
+
+                # Strategy 4: Try TypeScript compilation + manual bundling
+                echo "🔧 Strategy 4: TypeScript compilation + manual bundling..."
+                if npm run build:fallback; then
+                  echo "✅ Fallback build successful!"
+                else
+                  echo "❌ All build strategies failed!"
+                  exit 1
+                fi
+              fi
+            fi
+          fi
+
+          echo "✅ Build completed successfully with one of the strategies"
         working-directory: packages/client
         env:
           NODE_ENV: production
